@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+ 
+<hibernate-configuration>
+ 
+<session-factory>
+ 
+<!-- Database Connection Settings -->
+<property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
+<property name="connection.url">jdbc:mariadb://localhost:3306/creds</property>
+<property name="connection.username">root</property>
+<property name="connection.password">stash#1234</property>
+ 
+<!-- SQL Dialect -->
+<property name="dialect">org.hibernate.dialect.MariaDB103Dialect</property>
+ 
+<!-- Drop and re-create the database schema on startup -->
+<property name="hibernate.hbm2ddl.auto">create-drop</property>
+
+<!-- Echo all executed SQL to stdout -->
+<property name="hibernate.show_sql">true</property>
+ 
+<!-- Mention here all the model classes along with their package name -->
+<mapping class="com.cegres.data.entities.Student"/>
+ 
+</session-factory>
+ 
+</hibernate-configuration>

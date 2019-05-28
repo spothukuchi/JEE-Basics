@@ -1,0 +1,5 @@
+hibernate.connection.username=root
+hibernate.connection.password=stash#1234
+hibernate.connection.url=jdbc:mariadb://localhost:3306/creds
+hibernate.connection.driver_class=org.mariadb.jdbc.Driver
+hibernate.dialect=org.hibernate.dialect.MariaDB103Dialect
