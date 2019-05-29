@@ -22,6 +22,8 @@ public class Application {
 		app.update(5L);
 		app.delete();
 		app.display();
+		System.out.println("Bright Students:");
+		app.displayBright();
 	}
 	
 	//insert records in bulk
@@ -54,17 +56,32 @@ public class Application {
 	
 	//delete records with a criteria
 	public void delete() {
-	
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.getTransaction().begin();
 		String hql = "DELETE FROM Student WHERE marks < 35";
-		Query query = session.createQuery(hql);
+		Query<Student> query = session.createQuery(hql);
 		int result = query.executeUpdate();
 		System.out.println("Rows affected: " + result);
 		session.getTransaction().commit();
 		session.close();
 		
 	}
+	
+	//display specific records
+	@SuppressWarnings("unchecked")
+	public void displayBright() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.getTransaction().begin();
+		String hql = "FROM Student WHERE marks > 50";
+		Query<Student> query = session.createQuery(hql);
+		List<Student> students = query.getResultList();
+		for (Iterator<Student> iterator = students.iterator(); iterator.hasNext();){
+			Student student = iterator.next(); 
+			System.out.println(student.getId() + "\t" + student.getName() + "\t" + student.getMarks()); 
+		}
+		session.close();
+	}
+	
 	
 	//display all records
 	public void display() {
@@ -79,7 +96,7 @@ public class Application {
 		List<Student> students = query.getResultList();
         
 		for (Iterator<Student> iterator = students.iterator(); iterator.hasNext();){
-			Student student = (Student) iterator.next(); 
+			Student student = iterator.next(); 
 			System.out.println(student.getId() + "\t" + student.getName() + "\t" + student.getMarks()); 
 		}
         session.close();
